@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Race.h"
 
 @interface PKDetailViewController : UIViewController <UISplitViewControllerDelegate>
 
+- (void) setRace:(Race*)race;
 @property (strong, nonatomic) id detailItem;
+@property (nonatomic,strong) Race* race;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

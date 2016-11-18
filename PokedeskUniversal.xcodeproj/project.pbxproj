@@ -23,6 +23,11 @@
 		59E0CFCE183CC94F006654F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E0CFAA183CC94F006654F5 /* UIKit.framework */; };
 		59E0CFD6183CC94F006654F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 59E0CFD4183CC94F006654F5 /* InfoPlist.strings */; };
 		59E0CFD8183CC94F006654F5 /* PokedeskUniversalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0CFD7183CC94F006654F5 /* PokedeskUniversalTests.m */; };
+		59E0CFE6183CCFFF006654F5 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0CFE5183CCFFF006654F5 /* WebViewController.m */; };
+		59E0CFEA183CD14E006654F5 /* PokedeskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0CFE9183CD14E006654F5 /* PokedeskModel.m */; };
+		59E0CFED183CD246006654F5 /* Race.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0CFEC183CD246006654F5 /* Race.m */; };
+		59E0CFF0183CD29E006654F5 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E0CFEF183CD29E006654F5 /* Type.m */; };
+		59E0CFF2183CD2EA006654F5 /* pokemons.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59E0CFF1183CD2EA006654F5 /* pokemons.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,15 @@
 		59E0CFD3183CC94F006654F5 /* PokedeskUniversalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PokedeskUniversalTests-Info.plist"; sourceTree = "<group>"; };
 		59E0CFD5183CC94F006654F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		59E0CFD7183CC94F006654F5 /* PokedeskUniversalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PokedeskUniversalTests.m; sourceTree = "<group>"; };
+		59E0CFE4183CCFFF006654F5 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		59E0CFE5183CCFFF006654F5 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		59E0CFE8183CD14E006654F5 /* PokedeskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PokedeskModel.h; sourceTree = "<group>"; };
+		59E0CFE9183CD14E006654F5 /* PokedeskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PokedeskModel.m; sourceTree = "<group>"; };
+		59E0CFEB183CD246006654F5 /* Race.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Race.h; sourceTree = "<group>"; };
+		59E0CFEC183CD246006654F5 /* Race.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Race.m; sourceTree = "<group>"; };
+		59E0CFEE183CD29E006654F5 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type.h; sourceTree = "<group>"; };
+		59E0CFEF183CD29E006654F5 /* Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Type.m; sourceTree = "<group>"; };
+		59E0CFF1183CD2EA006654F5 /* pokemons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pokemons.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,13 +133,16 @@
 			children = (
 				59E0CFB5183CC94F006654F5 /* PKAppDelegate.h */,
 				59E0CFB6183CC94F006654F5 /* PKAppDelegate.m */,
-				59E0CFB8183CC94F006654F5 /* Main_iPhone.storyboard */,
-				59E0CFBB183CC94F006654F5 /* Main_iPad.storyboard */,
 				59E0CFBE183CC94F006654F5 /* PKMasterViewController.h */,
 				59E0CFBF183CC94F006654F5 /* PKMasterViewController.m */,
 				59E0CFC1183CC94F006654F5 /* PKDetailViewController.h */,
 				59E0CFC2183CC94F006654F5 /* PKDetailViewController.m */,
+				59E0CFE4183CCFFF006654F5 /* WebViewController.h */,
+				59E0CFE5183CCFFF006654F5 /* WebViewController.m */,
+				59E0CFB8183CC94F006654F5 /* Main_iPhone.storyboard */,
+				59E0CFBB183CC94F006654F5 /* Main_iPad.storyboard */,
 				59E0CFC4183CC94F006654F5 /* Images.xcassets */,
+				59E0CFE7183CD0D1006654F5 /* models */,
 				59E0CFAD183CC94F006654F5 /* Supporting Files */,
 			);
 			path = PokedeskUniversal;
@@ -158,6 +175,20 @@
 				59E0CFD4183CC94F006654F5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		59E0CFE7183CD0D1006654F5 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				59E0CFE8183CD14E006654F5 /* PokedeskModel.h */,
+				59E0CFE9183CD14E006654F5 /* PokedeskModel.m */,
+				59E0CFEB183CD246006654F5 /* Race.h */,
+				59E0CFEC183CD246006654F5 /* Race.m */,
+				59E0CFEE183CD29E006654F5 /* Type.h */,
+				59E0CFEF183CD29E006654F5 /* Type.m */,
+				59E0CFF1183CD2EA006654F5 /* pokemons.plist */,
+			);
+			name = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +270,7 @@
 			files = (
 				59E0CFBD183CC94F006654F5 /* Main_iPad.storyboard in Resources */,
 				59E0CFC5183CC94F006654F5 /* Images.xcassets in Resources */,
+				59E0CFF2183CD2EA006654F5 /* pokemons.plist in Resources */,
 				59E0CFBA183CC94F006654F5 /* Main_iPhone.storyboard in Resources */,
 				59E0CFB1183CC94F006654F5 /* InfoPlist.strings in Resources */,
 			);
@@ -259,10 +291,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59E0CFED183CD246006654F5 /* Race.m in Sources */,
 				59E0CFC3183CC94F006654F5 /* PKDetailViewController.m in Sources */,
+				59E0CFE6183CCFFF006654F5 /* WebViewController.m in Sources */,
+				59E0CFF0183CD29E006654F5 /* Type.m in Sources */,
 				59E0CFB3183CC94F006654F5 /* main.m in Sources */,
 				59E0CFC0183CC94F006654F5 /* PKMasterViewController.m in Sources */,
 				59E0CFB7183CC94F006654F5 /* PKAppDelegate.m in Sources */,
+				59E0CFEA183CD14E006654F5 /* PokedeskModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +517,7 @@
 				59E0CFDD183CC94F006654F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		59E0CFDE183CC94F006654F5 /* Build configuration list for PBXNativeTarget "PokedeskUniversalTests" */ = {
 			isa = XCConfigurationList;
@@ -489,6 +526,7 @@
 				59E0CFE0183CC94F006654F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

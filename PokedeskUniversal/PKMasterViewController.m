@@ -7,15 +7,32 @@
 //
 
 #import "PKMasterViewController.h"
-
 #import "PKDetailViewController.h"
+#import "WebViewController.h"
+#import "PokedeskModel.h"
+#import "Race.h"
+#import "Type.h"
+
 
 @interface PKMasterViewController () {
     NSMutableArray *_objects;
 }
+
+@property (strong, nonatomic) IBOutlet PokedeskModel *pokedeskModel;
+
 @end
 
 @implementation PKMasterViewController
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 
 - (void)awakeFromNib
 {
@@ -30,11 +47,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (PKDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,23 +69,40 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.pokedeskModel.types count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    Type * type = self.pokedeskModel.types[section];
+    return [type.races count];
+}
+
+- (NSString *)     tableView:(UITableView *)tableView
+     titleForHeaderInSection:(NSInteger)section
+{
+    Type * type = self.pokedeskModel.types[section];
+    return type.name;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    static NSString *CellIdentifier = @"Race Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
+                                                            forIndexPath:indexPath];
+    
+    Type * type = self.pokedeskModel.types[indexPath.section];
+    Race * race = type.races[indexPath.row];
+    
+    // Rellenar la celda:
+    cell.imageView.image = [UIImage imageNamed:race.icon];
+    cell.textLabel.text = race.name;
+    cell.detailTextLabel.text = [race.code description];
+    
     return cell;
 }
 
+/* Los dos primeros metodos venian sin comentar
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
@@ -90,7 +119,6 @@
     }
 }
 
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
@@ -106,21 +134,35 @@
 }
 */
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = _objects[indexPath.row];
-        self.detailViewController.detailItem = object;
+    if (!self.detailViewController){
+        NSIndexPath * ip = indexPath;
+        Type * type = self.pokedeskModel.types[ip.section];
+        Race * race = type.races[ip.row];
+        PKDetailViewController *pkdvc = [self.splitViewController.viewControllers lastObject];
+        
+        [pkdvc setRace:race];
     }
 }
 
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+    if ([segue.identifier isEqualToString:@"Show Web Info"]) {
+        
+        NSIndexPath * ip = [self.tableView indexPathForCell:sender];
+        
+        WebViewController *wvc = segue.destinationViewController;
+        
+        Type * type = self.pokedeskModel.types[ip.section];
+        wvc.race = type.races[ip.row];
     }
+
 }
+
 
 @end

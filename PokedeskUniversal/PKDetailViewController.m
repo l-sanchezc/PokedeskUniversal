@@ -7,28 +7,48 @@
 //
 
 #import "PKDetailViewController.h"
+#import "WebViewController.h"
+#import "Race.h"
 
 @interface PKDetailViewController ()
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIImageView *imagen;
+
+
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
 @implementation PKDetailViewController
+@synthesize toolbar = _toolbar;
+@synthesize label = _label;
+@synthesize imagen = _imagen;
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
+- (void) awakeFromNib
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
-    }
+    self.splitViewController.delegate = self;
+    [super awakeFromNib];
+}
 
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+-(void)setRace:(Race *)race
+{
+    //Make sure you're not setting up the same monster.
+    if (_race != race) {
+        _race = race;
+        
+        //Update the UI to reflect the new monster on the iPad.
+        [self refreshUI];
+    }
+}
+
+-(void) refreshUI
+{
+    Race * race = self.race;
+    _label.text = race.name;
+    _imagen.image = [UIImage imageNamed:race.icon];
 }
 
 - (void)configureView
@@ -55,18 +75,30 @@
 
 #pragma mark - Split view
 
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
-{
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    self.masterPopoverController = popoverController;
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc {
+    
+    barButtonItem.title = @"Ver Master";
+    
+    NSMutableArray * array = [self.toolbar.items mutableCopy];
+    [array insertObject:barButtonItem atIndex:0];
+    self.toolbar.items = array;
+    
+    self.masterPopoverController = pc;
+    
 }
-
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+- (void)splitViewController:(UISplitViewController *)splitController
+     willShowViewController:(UIViewController *)viewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
+    // Called when the view is shown again in the split view,
+    //invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
+    NSMutableArray * array = [self.toolbar.items mutableCopy];
+    [array removeObject:barButtonItem];
+    self.toolbar.items = array;    
 }
-
 @end
